@@ -66,7 +66,9 @@ function main() {
     commits,
   };
 
-  const outPath = path.join(__dirname, "..", "data", "todays-commits.json");
+  const dataDir = path.join(__dirname, "..", "data");
+  fs.mkdirSync(dataDir, { recursive: true });
+  const outPath = path.join(dataDir, "todays-commits.json");
   fs.writeFileSync(outPath, JSON.stringify(output, null, 2), "utf-8");
 
   console.log(`✅ Wrote ${commits.length} commit(s) to ${outPath}`);

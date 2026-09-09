@@ -15,6 +15,7 @@ const END_DATE_FIELD_ID = "f784a2a4-113d-4c53-b7c9-f331074be8d8";
 
 const INPUT_PATH = path.join(__dirname, "..", "data", "daily-note.json");
 const SHOULD_POST = process.argv.includes("--post");
+const SHOULD_FORCE = process.argv.includes("--force");
 
 if (!API_TOKEN || !LIST_ID) {
   console.error("Missing CLICKUP_API_TOKEN or CLICKUP_LIST_ID in .env");
@@ -163,7 +164,7 @@ function renderItems(items, depth = 1) {
 function buildTodayBlock(data) {
   const header = `*   ${todayLabel()}: Complete Tasks:\n\n`;
   const body = renderItems(data.items || []);
-  return `\n${header}${body}`;
+  return `\n\n\n${header}${body}`;
 }
 
 async function run() {
@@ -208,6 +209,17 @@ async function run() {
   const current = await clickupFetch(
     `/task/${weekTask.id}?include_markdown_description=true`,
   );
+
+  const dateLabel = `${todayLabel()}:`;
+  if (current.markdown_description && current.markdown_description.includes(dateLabel)) {
+    console.warn(`⚠️  Warning: Description already contains an entry for today (${dateLabel}).`);
+    if (!SHOULD_FORCE) {
+      console.warn("   Skipping update to prevent duplicate daily notes.");
+      console.warn("   Run with --force (e.g. --post --force) if you explicitly wish to append anyway.\n");
+      return;
+    }
+    console.log("   (--force flag detected: proceeding to append anyway)\n");
+  }
 
   const todayBlock = buildTodayBlock(data);
   const combined = (current.markdown_description || "") + todayBlock;

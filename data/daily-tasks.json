@@ -1,0 +1,55 @@
+{
+  "epic": {
+    "name": "Dashboard sent email count & log detail layout improvements",
+    "description": "Consolidated improvements to accurately query and display sent emails on the dashboard pay-as-you-go card and enhance LogDetailSheet date formatting and stats card layout.",
+    "notes": "Includes backend query optimization in WalletUseCase and frontend layout adjustments in LogDetailSheet and DashboardContent."
+  },
+  "tasks": [
+    {
+      "name": "1. Query actual sent emails in WalletUseCase",
+      "description": "Counts records directly from EmailTable for non-test emails to calculate totalEmailsSent accurately instead of approximating from wallet deductions.",
+      "notes": "Affects packages/admin-api/src/use-cases/wallet/wallet.use-case.ts",
+      "acceptanceCriteria": [
+        "EmailTable is queried directly using count() filter for organizationId and isTestEmail = false.",
+        "totalEmailsSent accurately reflects the count of sent emails."
+      ],
+      "subtasks": [
+        {
+          "name": "1. Replace wallet deduction calculation with direct EmailTable count query",
+          "description": "Modifies getSummary in wallet.use-case.ts to use allTimeEmailStats count.",
+          "notes": "",
+          "subtasks": []
+        }
+      ]
+    },
+    {
+      "name": "2. Display total sent count in Dashboard pay-as-you-go card",
+      "description": "Updates DashboardContent to format and show totalSent correctly in the email counter card.",
+      "notes": "Affects apps/web/features/dashboard/DashboardContent.tsx",
+      "acceptanceCriteria": [
+        "Total email sent displays formatted totalSent number."
+      ],
+      "subtasks": []
+    },
+    {
+      "name": "3. Refine LogDetailSheet timestamp formatting and card widths",
+      "description": "Shortens timestamp format from full month to abbreviated 'MMM d, yyyy • h:mm:ss a' and adjusts max width classes on stats cards to prevent overflow.",
+      "notes": "Affects apps/web/features/logs/components/LogDetailSheet.tsx",
+      "acceptanceCriteria": [
+        "Timestamp renders with abbreviated month name.",
+        "Stats cards maintain responsive max widths without layout breakage."
+      ],
+      "subtasks": []
+    }
+  ],
+  "dailyNotes": [
+    {
+      "text": "Dashboard sent email count & log detail layout improvements",
+      "children": [
+        "Query EmailTable directly for totalEmailsSent instead of calculating from wallet deductions",
+        "Display actual totalSent count in the dashboard pay-as-you-go card",
+        "Shorten timestamp date format and adjust stat card max widths in LogDetailSheet"
+      ]
+    }
+  ]
+}

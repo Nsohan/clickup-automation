@@ -76,13 +76,13 @@ Daily flow:
 Ordered by the severity tiers above — an agent (or you) can pick these up sequentially.
 
 ### Step A — Fix the Critical Bugs
-- [ ] Patch `get-todays-commits.js`: add `fs.mkdirSync(dataDir, { recursive: true })` before any write.
-- [ ] Add the same defensive `mkdirSync` to `push-to-clickup.js` in case it's ever run standalone.
-- [ ] Re-run `push-daily-note.js --post` against the live weekly task; screenshot/confirm the 06–09 September blocks are all present and correctly nested.
+- [x] Patch `get-todays-commits.js`: add `fs.mkdirSync(dataDir, { recursive: true })` before any write.
+- [x] Add the same defensive `mkdirSync` to `push-to-clickup.js` in case it's ever run standalone.
+- [x] Re-run `push-daily-note.js --post` against the live weekly task; confirmed 06–09 September blocks are present and nested.
 
 ### Step B — Idempotency Guard
-- [ ] In `push-daily-note.js`, before appending: check `current.markdown_description.includes(todayLabel())`.
-- [ ] If found, print a warning and require an explicit `--force` flag to append a second time (rather than silently duplicating).
+- [x] In `push-daily-note.js`, before appending: check `current.markdown_description.includes(todayLabel())`.
+- [x] If found, print a warning and require an explicit `--force` flag to append a second time (rather than silently duplicating).
 
 ### Step C — Scheduling
 - [ ] Decide the daily run time (e.g., end of workday).

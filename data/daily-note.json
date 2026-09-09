@@ -1,19 +1,12 @@
 {
   "items": [
     {
-      "text": "Campaign wire-up with wallets",
+      "text": "Dashboard sent email count & log detail layout improvements",
       "children": [
-        "No balance, no plan active error handling",
-        {
-          "text": "Campaign Snapshot",
-          "children": [
-            "Can't edit or delete contacts selected on a campaign",
-            "Can't delete a group if selected on any campaign"
-          ]
-        }
+        "Query EmailTable directly for totalEmailsSent instead of calculating from wallet deductions",
+        "Display actual totalSent count in the dashboard pay-as-you-go card",
+        "Shorten timestamp date format and adjust stat card max widths in LogDetailSheet"
       ]
-    },
-    "Multiple Plan handling",
-    "Added Campaign Scheduled Column"
+    }
   ]
 }

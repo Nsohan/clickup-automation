@@ -5,5 +5,5 @@ if %ERRORLEVEL% NEQ 0 (
     exit /b 1
 )
 echo.
-echo Now: feed data\todays-commits.json to your AI, save result as data\task.txt.
+echo Now: feed data\todays-commits.json to your AI, save result as data\daily-note.json.
 pause
