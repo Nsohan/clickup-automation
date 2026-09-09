@@ -1,0 +1,19 @@
+{
+  "items": [
+    {
+      "text": "Campaign wire-up with wallets",
+      "children": [
+        "No balance, no plan active error handling",
+        {
+          "text": "Campaign Snapshot",
+          "children": [
+            "Can't edit or delete contacts selected on a campaign",
+            "Can't delete a group if selected on any campaign"
+          ]
+        }
+      ]
+    },
+    "Multiple Plan handling",
+    "Added Campaign Scheduled Column"
+  ]
+}

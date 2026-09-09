@@ -1,0 +1,153 @@
+this is clickup task list demo example
+
+{
+  "epic": {
+    "name": "UI adjustments and log search enhancements",
+    "description": "Consolidated updates to improve email column truncation, remove audience references from campaigns, adjust date rendering, and add robust System sender filter and search options to system logs.",
+    "notes": "Contains changes from 6 commits made today: email cell tooltips, campaign audience deprecation, short relative time adjustments, filter type sharing, and advanced logs query filtering."
+  },
+  "tasks": [
+    {
+      "name": "1. Truncate email display in tables",
+      "description": "Prevents long email addresses from clipping and breaking table layouts on laptop screens (1440px) by applying truncation and tooltips.",
+      "notes": "Affects ContactsTable and SuppressionsTable email columns.",
+      "acceptanceCriteria": [
+        "Contacts table email cells truncate with an ellipsis.",
+        "Suppressions table email cells truncate with an ellipsis.",
+        "Hovering over truncated emails displays the full text as a native tooltip."
+      ],
+      "subtasks": [
+        {
+          "name": "1. Apply truncation to contact emails",
+          "description": "Modifies ContactColumns.tsx to apply class 'truncate' and the title attribute.",
+          "notes": "",
+          "subtasks": []
+        },
+        {
+          "name": "2. Apply truncation to suppression emails",
+          "description": "Modifies SuppressionColumns.tsx to apply class 'truncate' and the title attribute.",
+          "notes": "",
+          "subtasks": []
+        }
+      ]
+    },
+    {
+      "name": "2. Remove audience fields from campaigns",
+      "description": "Cleans up unused Campaign audience fields on both frontend and backend.",
+      "notes": "Deletes database joins to ContactGroupTable in campaign-list.use-case.ts.",
+      "acceptanceCriteria": [
+        "Audience column is completely removed from the campaigns table.",
+        "Campaign list database query no longer attempts to join/fetch contact groups.",
+        "Zod schemas for campaigns are updated to omit audience attributes."
+      ],
+      "subtasks": [
+        {
+          "name": "1. Remove audience from campaign query",
+          "description": "Removes ContactGroupTable query and mappings from campaign-list.use-case.ts.",
+          "notes": "",
+          "subtasks": []
+        },
+        {
+          "name": "2. Clean up campaign schema definitions",
+          "description": "Removes audienceName, audienceId, and audience from campaign.schema.ts.",
+          "notes": "",
+          "subtasks": []
+        },
+        {
+          "name": "3. Remove audience column from table",
+          "description": "Removes audience column definition in CampaignColumns.tsx and wrapper.",
+          "notes": "",
+          "subtasks": []
+        }
+      ]
+    },
+    {
+      "name": "3. Update relative date formatting logic",
+      "description": "Adjusts formatShortRelativeTime to show absolute dates for entries older than 24 hours, keeping recent entries relative.",
+      "notes": "Uses date-fns for formatting.",
+      "acceptanceCriteria": [
+        "Dates older than 24 hours display in 'MMMM d, yyyy' format.",
+        "Dates under 24 hours continue to display as relative units (secs, mins, hours).",
+        "Unused imports are cleaned up."
+      ],
+      "subtasks": [
+        {
+          "name": "1. Implement absolute formatting for older dates",
+          "description": "Updates formatShortRelativeTime in apps/web/utils/date.ts with hours >= 24 check.",
+          "notes": "",
+          "subtasks": []
+        },
+        {
+          "name": "2. Keep relative formatting for recent dates",
+          "description": "Ensures that hours, mins, and secs under 24 hours format as short relative strings.",
+          "notes": "",
+          "subtasks": []
+        }
+      ]
+    },
+    {
+      "name": "4. Enhance log search and sender filters",
+      "description": "Implements 'System' virtual sender, searches by sender email, and simplifies log column layout.",
+      "notes": "Fixes Postgres enum search bug by casting state column to text.",
+      "acceptanceCriteria": [
+        "FilterOption interface is moved to a shared common schema.",
+        "Logs table search query queries recipientEmail, fromEmail, campaignName, status, and userAgent.",
+        "Logs list, export, and senders dropdown correctly identify test emails as 'System'.",
+        "CopyableCell wrapper is removed from the email event column."
+      ],
+      "subtasks": [
+        {
+          "name": "1. Move filter type to shared schema",
+          "description": "Removes local FilterOption type from web/features/logs/components/LogColumns.tsx and places it in packages/schema/src/common.schema.ts.",
+          "notes": "",
+          "subtasks": []
+        },
+        {
+          "name": "2. Add sender search to log queries",
+          "description": "Enhances log-list and log-export use cases to search over fromEmail.",
+          "notes": "",
+          "subtasks": []
+        },
+        {
+          "name": "3. Support System sender filter",
+          "description": "Handles filtering logs where isTestEmail = true under the virtual sender name 'System'.",
+          "notes": "",
+          "subtasks": [
+            {
+              "name": "1. Update log list use case",
+              "description": "Maps isTestEmail flag to 'System' sender.",
+              "notes": "",
+              "subtasks": []
+            },
+            {
+              "name": "2. Update log export use case",
+              "description": "Ensures exported log sheets filter and display 'System' sender info correctly.",
+              "notes": "",
+              "subtasks": []
+            },
+            {
+              "name": "3. Update log senders query",
+              "description": "Adds 'System' to the list of senders when isTestEmail records exist.",
+              "notes": "",
+              "subtasks": []
+            }
+          ]
+        },
+        {
+          "name": "4. Simplify event column in logs table",
+          "description": "Removes CopyableCell component wrapper to streamline the emailEvents cell.",
+          "notes": "",
+          "subtasks": []
+        }
+      ]
+    }
+  ]
+}
+
+
+
+
+i want , create a Epic named Settings v2 
+and add all the flow on there based on images
+check all the image carefully
+pick all the options sub options etc and give me a full json for all the flow 
